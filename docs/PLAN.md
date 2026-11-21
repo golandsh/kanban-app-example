@@ -7,7 +7,7 @@
 - **Local Python**: `pyenv` (Python `3.15.2`) with `.python-version` and a local `.venv` for running backend tests and tooling on the host.
 - **Scripts**: Mac-only shell scripts (`scripts/start.sh`, `scripts/stop.sh`) wrapping Docker Compose.
 - **Database**: SQLite stored in a mounted Docker volume (`./data` -> `/app/data/kanban.db`) so data persists across container restarts.
-- **Authentication**: Hardcoded MVP credentials (`user` / `password`) using a simple HTTP-only session cookie managed by FastAPI.
+- **Authentication**: Hardcoded MVP credentials (`user` / `password`) using an HMAC-SHA256 signed HTTP-only `kanban_session` cookie (`SESSION_SECRET` env var) managed by FastAPI.
 - **AI**: OpenRouter API (`OPENROUTER_API_KEY` from `.env`) with `nvidia/nemotron-3-ultra-550b-a55b:free` and Structured Outputs.
 - **Testing**: Target ~80% test coverage where sensible; focus on valuable tests and avoid unnecessary tests just to hit a coverage number.
 
@@ -38,11 +38,11 @@
 - [x] Create Mac-only `scripts/start.sh` (`docker compose up --build -d`) and `scripts/stop.sh` (`docker compose down`) with executable permissions
 
 **Tests & Verification**:
-- `pytest` unit test for `/api/health` returning `200` and `{"status": "ok"}`.
-- Run `./scripts/start.sh`, verify `http://localhost:8000/` serves the hello world page and its `/api/health` fetch succeeds, then run `./scripts/stop.sh`.
+- `pytest` unit tests for `/health` (`{"status": "ok"}`), `/api/hello`, and `/` static HTML.
+- Run `./scripts/start.sh`, verify `http://localhost:8000/` serves the hello world page and `/health` and `/api/hello` succeed, then run `./scripts/stop.sh`.
 
 **Success Criteria**:
-- Container builds cleanly with `uv`, starts/stops via `scripts/`, serves static HTML at `/`, and responds to `/api/health` on port `8000`.
+- Container builds cleanly with `uv`, starts/stops via `scripts/`, serves static HTML at `/`, and responds to `/health` and `/api/hello` on port `8000`.
 
 ---
 
@@ -57,7 +57,7 @@
 - Docker integration check: start container via `scripts/start.sh`, verify `http://localhost:8000/` serves the built Kanban HTML and `/_next/*` assets, and `/health` and `/api/hello` respond `200`.
 
 **Success Criteria**:
-- Full demo Kanban board is served statically by FastAPI at `http://localhost:8000/` inside Docker, with all unit and E2E tests passing.
+- Full demo Kanban board is served statically by FastAPI at `http://localhost:8000/` inside Docker, with all unit/integration tests passing.
 
 ---
 
