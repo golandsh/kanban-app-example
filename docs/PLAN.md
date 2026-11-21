@@ -131,9 +131,9 @@
 
 ## Part 8: AI Connectivity
 
-- [ ] Add OpenRouter client helper in `backend/app/ai.py` using `OPENROUTER_API_KEY` from `.env` and model `nvidia/nemotron-3-ultra-550b-a55b:free`
-- [ ] Add a minimal connectivity test endpoint or CLI/pytest check (e.g., `POST /api/ai/ping` or `pytest` integration test) sending `"What is 2+2?"`
-- [ ] Verify `.env` is passed into the Docker container via `docker-compose.yml`
+- [x] Add OpenRouter client helper in `backend/app/ai.py` using `OPENROUTER_API_KEY` from `.env` and model `nvidia/nemotron-3-ultra-550b-a55b:free` (with optional `OPENROUTER_MODEL` override)
+- [x] Add auth-protected `POST /api/ai/ping` endpoint sending `"What is 2+2?"`
+- [x] Verify `.env` is passed into the Docker container via `docker-compose.yml`
 
 **Tests & Verification**:
 - Automated unit test with mocked OpenRouter HTTP response.
