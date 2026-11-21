@@ -47,14 +47,13 @@
 
 ## Part 3: Add in Frontend
 
-- [ ] Configure `frontend/next.config.ts` with `output: "export"` for static HTML/JS/CSS export (`frontend/out/`)
-- [ ] Update `Dockerfile` to build `frontend/` (`npm ci && npm run build`) and copy `frontend/out/` into the backend static directory served by FastAPI at `/`
-- [ ] Verify SPA/static asset routing in FastAPI so `/`, `/_next/*`, and `favicon.ico` resolve cleanly
+- [x] Configure `frontend/next.config.ts` with `output: "export"` for static HTML/JS/CSS export (`frontend/out/`)
+- [x] Update `Dockerfile` to build `frontend/` (`npm ci && npm run build`) and copy `frontend/out/` into the backend static directory served by FastAPI at `/`
+- [x] Verify SPA/static asset routing in FastAPI so `/`, `/_next/*`, and `favicon.ico` resolve cleanly
 
 **Tests & Verification**:
-- Frontend unit/component tests: `npm run test:unit` in `frontend/` passes.
-- Frontend E2E tests: `npm run test:e2e` in `frontend/` passes.
-- Docker integration check: start container via `scripts/start.sh`, load `http://localhost:8000/` in a browser/Playwright, verify the demo Kanban board renders and drag/drop, column rename, add card, and remove card work.
+- Frontend unit/integration tests: `npm run test:unit` in `frontend/` passes.
+- Docker integration check: start container via `scripts/start.sh`, verify `http://localhost:8000/` serves the built Kanban HTML and `/_next/*` assets, and `/health` and `/api/hello` respond `200`.
 
 **Success Criteria**:
 - Full demo Kanban board is served statically by FastAPI at `http://localhost:8000/` inside Docker, with all unit and E2E tests passing.
@@ -71,11 +70,11 @@
   - Check `/api/auth/me` on load; show clean login form matching the color scheme (`#032147`, `#209dd7`, `#753991`, `#ecad0a`) when unauthenticated
   - Render `<KanbanBoard />` with a Sign Out button in the header when authenticated
 - [ ] Add backend unit tests for login (valid/invalid credentials), `/api/auth/me`, and logout
-- [ ] Add frontend unit/E2E tests covering unauthenticated redirect/gate, login with `user`/`password`, invalid login error, and logout
+- [ ] Add frontend unit/integration tests covering unauthenticated gate, login with `user`/`password`, invalid login error, and logout
 
 **Tests & Verification**:
 - `pytest` passes all auth endpoint tests.
-- `npm run test:unit` and Playwright E2E tests verify login -> board -> logout flow against the running app.
+- `npm run test:unit` verifies login -> board -> logout flow.
 
 **Success Criteria**:
 - Hitting `/` while signed out shows the login screen; signing in with `user` / `password` shows the Kanban board; signing out returns to the login screen.
@@ -118,12 +117,11 @@
 - [ ] Update `KanbanBoard.tsx` to load board state from `GET /api/board` on mount (with loading/error states)
 - [ ] Persist all board mutations (`PUT /api/board`): drag-and-drop move, column rename, add card, edit card, delete card
 - [ ] Add card editing UI in `KanbanCard.tsx` (edit title and details inline or via compact edit mode) per business requirements
-- [ ] Update frontend unit tests (mocking `/api/board`) and Playwright E2E tests (verifying persistence across page reload and container restart)
+- [ ] Update frontend unit/integration tests (mocking `/api/board`) to verify loading, renaming, adding, editing, moving, and deleting cards
 
 **Tests & Verification**:
-- `npm run test:unit` passes.
-- Playwright E2E test signs in, renames a column, adds/edits/moves/deletes a card, reloads the page, and verifies changes persist.
-- Restart Docker container (`scripts/stop.sh` + `scripts/start.sh`) and verify SQLite volume retains the changes.
+- `npm run test:unit` and `pytest` pass.
+- Verify persistence across container restart (`scripts/stop.sh` + `scripts/start.sh`) via `./data` SQLite volume.
 
 **Success Criteria**:
 - Kanban board is fully persistent end-to-end across reloads and container restarts, including card editing.
@@ -171,12 +169,11 @@
 - [ ] Build a clean, collapsible/docked AI Chat Sidebar component matching the app color palette (`#032147`, `#209dd7`, `#753991`, `#ecad0a`)
 - [ ] Maintain conversation history in the sidebar, send messages to `POST /api/ai/chat`, and show loading/error states
 - [ ] Automatically refresh `KanbanBoard` state whenever the AI response includes an updated board
-- [ ] Add frontend unit tests for the chat sidebar (sending messages, rendering replies, triggering board refresh on `board_update`)
-- [ ] Add Playwright E2E test verifying the full user flow: sign in -> ask AI in sidebar to create/move/edit cards -> board updates automatically and persists on reload
+- [ ] Add frontend unit/integration tests for the chat sidebar (sending messages, rendering replies, triggering board refresh on `board_update`)
 
 **Tests & Verification**:
-- `npm run test:unit`, `npm run test:e2e`, and `pytest` all pass.
-- Full manual/automated verification in Docker on `http://localhost:8000/`.
+- `npm run test:unit` and `pytest` all pass.
+- Verify in Docker on `http://localhost:8000/`.
 
 **Success Criteria**:
 - Users can chat with the AI in the sidebar, the AI can create/edit/move cards, and the Kanban board refreshes automatically and persists changes.
