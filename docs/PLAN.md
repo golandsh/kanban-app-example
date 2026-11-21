@@ -167,10 +167,10 @@
 
 ## Part 10: AI Chat Sidebar UI
 
-- [ ] Build a clean, collapsible/docked AI Chat Sidebar component matching the app color palette (`#032147`, `#209dd7`, `#753991`, `#ecad0a`)
-- [ ] Maintain conversation history in the sidebar, send messages to `POST /api/ai/chat`, and show loading/error states
-- [ ] Automatically refresh `KanbanBoard` state whenever the AI response includes an updated board
-- [ ] Add frontend unit/integration tests for the chat sidebar (sending messages, rendering replies, triggering board refresh on `board_update`)
+- [x] Build a clean, collapsible/docked AI Chat Sidebar component matching the app color palette (`#032147`, `#209dd7`, `#753991`, `#ecad0a`)
+- [x] Maintain conversation history in the sidebar, send messages to `POST /api/ai/chat`, and show loading/error states
+- [x] Automatically refresh `KanbanBoard` state whenever the AI response includes an updated board
+- [x] Add frontend unit/integration tests for the chat sidebar (sending messages, rendering replies, triggering board refresh on `board_update`)
 
 **Tests & Verification**:
 - `npm run test:unit` and `pytest` all pass.
