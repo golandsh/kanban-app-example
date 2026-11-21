@@ -4,7 +4,7 @@
 
 - **Server & Port**: FastAPI on port `8000`, serving the static Next.js build at `/` and API routes under `/api/*`.
 - **Containerization**: `Dockerfile` + `docker-compose.yml` using `uv` for Python dependency management inside the container.
-- **Local Python**: `pyenv` (Python `3.14.6`) with `.python-version` and a local `.venv` for running backend tests and tooling on the host.
+- **Local Python**: `pyenv` (Python `3.15.2`) with `.python-version` and a local `.venv` for running backend tests and tooling on the host.
 - **Scripts**: Mac-only shell scripts (`scripts/start.sh`, `scripts/stop.sh`) wrapping Docker Compose.
 - **Database**: SQLite stored in a mounted Docker volume (`./data` -> `/app/data/kanban.db`) so data persists across container restarts.
 - **Authentication**: Hardcoded MVP credentials (`user` / `password`) using a simple HTTP-only session cookie managed by FastAPI.
@@ -18,7 +18,7 @@
 - [x] Inspect existing `frontend/` codebase
 - [x] Create `frontend/AGENTS.md` documenting existing frontend structure, components, state, and tests
 - [x] Enrich `docs/PLAN.md` with detailed checklists, tests, and success criteria for Parts 1-10
-- [ ] Obtain user review and approval of the plan
+- [x] Obtain user review and approval of the plan
 
 **Tests & Verification**:
 - Verify `docs/PLAN.md` and `frontend/AGENTS.md` accurately reflect repo state and all user requirements.
@@ -30,11 +30,11 @@
 
 ## Part 2: Scaffolding
 
-- [ ] Configure local Python via `pyenv` (`3.14.6` in `.python-version`) and create a local `.venv` in `backend/` for running `pytest` on the host
-- [ ] Initialize Python project in `backend/` with `pyproject.toml` (FastAPI, `uvicorn`, `httpx`, `pytest`) managed via `uv` in Docker
-- [ ] Create `backend/app/main.py` with a `/api/health` endpoint and static file serving from a static directory (with a temporary `hello world` HTML page that calls `/api/health`)
-- [ ] Create `Dockerfile` (multi-stage or Node + Python `uv` setup) and `docker-compose.yml` exposing port `8000`, loading `.env`, and mounting `./data:/app/data`
-- [ ] Create Mac-only `scripts/start.sh` (`docker compose up --build -d`) and `scripts/stop.sh` (`docker compose down`) with executable permissions
+- [x] Configure local Python via `pyenv` (`3.15.2` in `.python-version`) and create a local `.venv` in `backend/` for running `pytest` on the host
+- [x] Initialize Python project in `backend/` with `pyproject.toml` (FastAPI, `uvicorn`, `httpx`, `pytest`) managed via `uv` in Docker
+- [x] Create `backend/app/main.py` with `/health`, `/api/hello`, and static file serving from a static directory (with a temporary `hello world` HTML page that calls `/health`)
+- [x] Create `Dockerfile` (multi-stage or Node + Python `uv` setup) and `docker-compose.yml` exposing port `8000`, loading `.env`, and mounting `./data:/app/data`
+- [x] Create Mac-only `scripts/start.sh` (`docker compose up --build -d`) and `scripts/stop.sh` (`docker compose down`) with executable permissions
 
 **Tests & Verification**:
 - `pytest` unit test for `/api/health` returning `200` and `{"status": "ok"}`.

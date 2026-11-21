@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kanban Studio - Scaffolding</title>
+  </head>
+  <body>
+    <h1>Hello World</h1>
+    <p id="status">Checking API...</p>
+    <script>
+      fetch("/health")
+        .then((res) => res.json())
+        .then((data) => {
+          document.getElementById("status").textContent = "API status: " + data.status;
+        })
+        .catch((err) => {
+          document.getElementById("status").textContent = "API error: " + err;
+        });
+    </script>
+  </body>
+</html>
