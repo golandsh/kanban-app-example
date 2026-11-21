@@ -84,9 +84,9 @@
 
 ## Part 5: Database Modeling
 
-- [ ] Design SQLite schema supporting multiple users (for future) and 1 Kanban board per user stored as JSON (e.g., `users` table and `boards` table with `user_id`, `board_json`, `updated_at`)
-- [ ] Document the schema, JSON structure, initialization behavior, and migration/creation strategy in `docs/DATABASE.md`
-- [ ] Obtain user sign-off on `docs/DATABASE.md` before writing Part 6
+- [x] Design SQLite schema supporting multiple users (for future) and 1 Kanban board per user stored as JSON (e.g., `users` table and `boards` table with `user_id`, `board_json`, `updated_at`)
+- [x] Document the schema, JSON structure, initialization behavior, and migration/creation strategy in `docs/DATABASE.md`
+- [x] Obtain user sign-off on `docs/DATABASE.md` before writing Part 6
 
 **Tests & Verification**:
 - Review `docs/DATABASE.md` against all business requirements (multi-user ready, 1 board per user, fixed columns that can be renamed, cards with title/details, SQLite local DB).
@@ -98,12 +98,12 @@
 
 ## Part 6: Backend
 
-- [ ] Implement SQLite database module in `backend/app/db.py` (auto-creates `/app/data/kanban.db` and tables + seeds default `user` and initial board JSON if missing)
-- [ ] Protect board API routes with the session cookie dependency (`401` if unauthenticated)
-- [ ] Implement board API routes:
+- [x] Implement SQLite database module in `backend/app/db.py` (auto-creates `/app/data/kanban.db` and tables + seeds default `user` and initial board JSON if missing)
+- [x] Protect board API routes with the session cookie dependency (`401` if unauthenticated)
+- [x] Implement board API routes:
   - `GET /api/board` (returns the authenticated user's Kanban board JSON)
   - `PUT /api/board` (validates and persists the updated Kanban board JSON)
-- [ ] Write comprehensive `pytest` unit/integration tests using a temporary SQLite DB covering DB auto-creation, initial seed data, `GET /api/board`, `PUT /api/board`, validation errors, and `401` when unauthenticated
+- [x] Write comprehensive `pytest` unit/integration tests using a temporary SQLite DB covering DB auto-creation, initial seed data, `GET /api/board`, `PUT /api/board`, validation errors, and `401` when unauthenticated
 
 **Tests & Verification**:
 - `pytest` passes all DB and board API tests with clean isolation.
