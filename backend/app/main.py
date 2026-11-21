@@ -2,9 +2,12 @@ from pathlib import Path
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+from app.auth import router as auth_router
+
 STATIC_DIR = Path(__file__).resolve().parent.parent / "static"
 
 app = FastAPI(title="Kanban Studio API")
+app.include_router(auth_router)
 
 
 @app.get("/health")

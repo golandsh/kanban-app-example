@@ -9,6 +9,7 @@
 - **Database**: SQLite stored in a mounted Docker volume (`./data` -> `/app/data/kanban.db`) so data persists across container restarts.
 - **Authentication**: Hardcoded MVP credentials (`user` / `password`) using a simple HTTP-only session cookie managed by FastAPI.
 - **AI**: OpenRouter API (`OPENROUTER_API_KEY` from `.env`) with `nvidia/nemotron-3-ultra-550b-a55b:free` and Structured Outputs.
+- **Testing**: Target ~80% test coverage where sensible; focus on valuable tests and avoid unnecessary tests just to hit a coverage number.
 
 ---
 
@@ -62,15 +63,15 @@
 
 ## Part 4: Add in a Fake User Sign-In Experience
 
-- [ ] Add backend auth routes in FastAPI:
+- [x] Add backend auth routes in FastAPI:
   - `POST /api/auth/login` (validates `username == "user"` and `password == "password"`, sets HTTP-only session cookie)
   - `POST /api/auth/logout` (clears session cookie)
   - `GET /api/auth/me` (returns current user or `401`)
-- [ ] Add frontend login gate and sign-out UI:
+- [x] Add frontend login gate and sign-out UI:
   - Check `/api/auth/me` on load; show clean login form matching the color scheme (`#032147`, `#209dd7`, `#753991`, `#ecad0a`) when unauthenticated
   - Render `<KanbanBoard />` with a Sign Out button in the header when authenticated
-- [ ] Add backend unit tests for login (valid/invalid credentials), `/api/auth/me`, and logout
-- [ ] Add frontend unit/integration tests covering unauthenticated gate, login with `user`/`password`, invalid login error, and logout
+- [x] Add backend unit tests for login (valid/invalid credentials), `/api/auth/me`, and logout
+- [x] Add frontend unit/integration tests covering unauthenticated gate, login with `user`/`password`, invalid login error, and logout
 
 **Tests & Verification**:
 - `pytest` passes all auth endpoint tests.
