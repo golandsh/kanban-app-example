@@ -2,6 +2,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { AuthGate } from "@/components/AuthGate";
+import { initialData } from "@/lib/kanban";
 
 describe("AuthGate", () => {
   afterEach(() => {
@@ -14,6 +15,12 @@ describe("AuthGate", () => {
       .mockResolvedValueOnce(new Response(null, { status: 401 }))
       .mockResolvedValueOnce(
         new Response(JSON.stringify({ username: "user" }), {
+          status: 200,
+          headers: { "Content-Type": "application/json" },
+        })
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify(initialData), {
           status: 200,
           headers: { "Content-Type": "application/json" },
         })
@@ -46,7 +53,7 @@ describe("AuthGate", () => {
       ).toBeInTheDocument();
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(3);
+    expect(fetchMock).toHaveBeenCalledTimes(4);
   });
 
   it("shows an error on invalid credentials", async () => {

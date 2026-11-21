@@ -115,10 +115,10 @@
 
 ## Part 7: Frontend + Backend
 
-- [ ] Update `KanbanBoard.tsx` to load board state from `GET /api/board` on mount (with loading/error states)
-- [ ] Persist all board mutations (`PUT /api/board`): drag-and-drop move, column rename, add card, edit card, delete card
-- [ ] Add card editing UI in `KanbanCard.tsx` (edit title and details inline or via compact edit mode) per business requirements
-- [ ] Update frontend unit/integration tests (mocking `/api/board`) to verify loading, renaming, adding, editing, moving, and deleting cards
+- [x] Update `KanbanBoard.tsx` to load board state from `GET /api/board` on mount (with loading/error states)
+- [x] Persist all board mutations (`PUT /api/board`): drag-and-drop move, column rename, add card, edit card, delete card
+- [x] Add card editing UI in `KanbanCard.tsx` (edit title and details inline or via compact edit mode) per business requirements
+- [x] Update frontend unit/integration tests (mocking `/api/board`) to verify loading, renaming, adding, editing, moving, and deleting cards
 
 **Tests & Verification**:
 - `npm run test:unit` and `pytest` pass.
