@@ -1,4 +1,5 @@
-from pydantic import BaseModel
+from typing import Literal
+from pydantic import BaseModel, Field
 
 
 class Card(BaseModel):
@@ -16,3 +17,24 @@ class Column(BaseModel):
 class BoardData(BaseModel):
     columns: list[Column]
     cards: dict[str, Card]
+
+
+class ChatMessage(BaseModel):
+    role: Literal["user", "assistant"]
+    content: str
+
+
+class AIChatRequest(BaseModel):
+    message: str = Field(min_length=1)
+    history: list[ChatMessage] = Field(default_factory=list)
+
+
+class AIStructuredOutput(BaseModel):
+    reply: str
+    board_update: BoardData | None = None
+
+
+class AIChatResponse(BaseModel):
+    reply: str
+    updated: bool
+    board: BoardData

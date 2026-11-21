@@ -146,13 +146,13 @@
 
 ## Part 9: Backend AI + Structured Outputs
 
-- [ ] Define Pydantic schemas for AI chat request (`message`, `history`) and Structured Output response (`reply: str`, `board_update: BoardData | None`)
-- [ ] Implement `POST /api/ai/chat` (auth-protected):
+- [x] Define Pydantic schemas for AI chat request (`message`, `history`) and Structured Output response (`reply: str`, `board_update: BoardData | None`)
+- [x] Implement `POST /api/ai/chat` (auth-protected):
   - Loads the user's current board JSON from SQLite
   - Sends system prompt + current board JSON + conversation history + user message to OpenRouter requesting Structured Outputs
   - Parses and validates the structured response; if `board_update` is present, validates it and persists it to SQLite
-  - Returns `{ reply, board }` (or `{ reply, updated, board }`) to the caller
-- [ ] Write thorough `pytest` tests covering:
+  - Returns `{ reply, updated, board }` to the caller
+- [x] Write thorough `pytest` tests covering:
   - Chat-only response (`board_update: null`, DB unchanged)
   - Board mutation response (create/edit/move cards, DB updated)
   - Invalid/malformed LLM output handling and `401` when unauthenticated
